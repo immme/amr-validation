@@ -27,7 +27,7 @@ class FakeSensor(Node):
         self.count = 0
         self.timer = self.create_timer(period_sec, self.on_timer)
         self.get_logger().info(
-            f'publishing Int32 on sensor_value every {period_sec} s')
+            f'publishing Int32 on sensor_value every {period_sec}s')
 
     def on_timer(self):
         msg = Int32()
