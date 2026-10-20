@@ -22,6 +22,8 @@ setup(
             # 실행 이름 = 모듈 경로:호출할 함수
             'fake_sensor = sensor_health.fake_sensor:main',
             'sensor_receiver = sensor_health.sensor_receiver:main',
+            'fake_scan = sensor_health.fake_scan:main',
+            'scan_receiver = sensor_health.scan_receiver:main',
         ],
     },
 )
