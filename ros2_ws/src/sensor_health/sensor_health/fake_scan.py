@@ -35,7 +35,7 @@ class FakeScan(Node):
 
     def on_timer(self):
         msg = LaserScan()
-        # 같은 ROS 시계로 잰 현재 시각에서 delay_sec만큼 뺀 시각을 stamp에 넣는다
+        # 같은 ROS 시계의 현재 시각에서 delay_sec만큼 뺀 시각을 stamp에 넣는다
         stamp = self.get_clock().now() - Duration(seconds=self.delay_sec)
         msg.header.stamp = stamp.to_msg()
         msg.header.frame_id = 'laser'
