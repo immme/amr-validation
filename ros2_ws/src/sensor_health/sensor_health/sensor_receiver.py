@@ -1,7 +1,4 @@
-"""sensor_value 토픽을 구독해 메시지가 올 때마다 도착 시각을 기록하는 ROS2 노드.
-
-도착 시각의 기록과 계산은 ArrivalTracker가 맡고, 이 노드는 메시지를 받아 넘기는
-역할만 한다.
+"""sensor_value 토픽의 메시지 도착 시각을 기록하는 ROS2 노드.
 
 사용법:
     ros2 run sensor_health sensor_receiver
@@ -25,7 +22,7 @@ class SensorReceiver(Node):
         self.get_logger().info('waiting for Int32 on sensor_value')
 
     def on_msg(self, msg):
-        # 시스템 시계가 바뀌어도 줄어들지 않는 시계로 도착 시각(초)을 잰다
+        # 시스템 시계가 바뀌어도 거꾸로 가지 않는 단조 시계로 도착 시각(초)을 측정한다.
         self.tracker.on_arrival(time.monotonic())
         self.get_logger().info(f'received {msg.data}')
 

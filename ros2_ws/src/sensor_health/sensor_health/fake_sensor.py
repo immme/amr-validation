@@ -1,13 +1,9 @@
-"""가짜 센서 ROS2 노드.
-
-정해진 주기로 0부터 1씩 늘어나는 숫자(Int32)를 sensor_value 토픽에 발행한다.
-센서 토픽을 구독하는 ROS2 노드를 테스트하기 위한 신호원이며, 실제 센서와 달리
-주기를 정하고 원하는 때에 멈출 수 있다.
+"""0부터 1씩 늘어나는 Int32를 sensor_value 토픽에 발행하는 가짜 센서 ROS2 노드.
 
 사용법:
     ros2 run sensor_health fake_sensor [period_sec]
 
-    period_sec: 발행 주기(초). 생략하면 DEFAULT_PERIOD_SEC를 쓴다.
+    period_sec: 발행 주기(초). 기본 0.5.
 """
 
 import sys
