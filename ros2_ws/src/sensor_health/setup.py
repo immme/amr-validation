@@ -19,7 +19,6 @@ setup(
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
-            # 실행 이름 = 모듈 경로:호출할 함수
             'fake_sensor = sensor_health.fake_sensor:main',
             'sensor_receiver = sensor_health.sensor_receiver:main',
             'fake_scan = sensor_health.fake_scan:main',

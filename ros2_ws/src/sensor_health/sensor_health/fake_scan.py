@@ -1,14 +1,13 @@
-"""가짜 LaserScan ROS2 노드.
+"""LaserScan을 scan 토픽에 발행하는 가짜 센서 ROS2 노드.
 
-정해진 주기로 LaserScan 메시지를 scan 토픽에 발행한다. header.stamp에는 발행
-순간보다 delay_sec(초)만큼 이전 시각을 넣는다. 그래서 이 메시지로 측정한 지연은
-delay_sec에 가까워야 하며, 이 값을 정답으로 삼아 지연 측정이 맞는지 확인할 수 있다.
+header.stamp를 발행 순간보다 delay_sec만큼 이전으로 찍는다. 받는 쪽에서 측정한 지연을
+delay_sec과 비교해 지연 측정이 맞는지 확인하는 데 쓴다.
 
 사용법:
     ros2 run sensor_health fake_scan [period_sec] [delay_sec]
 
-    period_sec: 발행 주기(초). 생략하면 0.5초.
-    delay_sec: stamp를 발행 순간보다 얼마나 과거로 찍을지(초). 생략하면 0.1초.
+    period_sec: 발행 주기(초). 기본 0.5.
+    delay_sec: stamp를 발행 순간보다 이전으로 찍을 시간(초). 기본 0.1. 음수면 이후로 찍는다.
 """
 
 import sys
@@ -35,11 +34,10 @@ class FakeScan(Node):
 
     def on_timer(self):
         msg = LaserScan()
-        # 같은 ROS 시계의 현재 시각에서 delay_sec만큼 뺀 시각을 stamp에 넣는다
         stamp = self.get_clock().now() - Duration(seconds=self.delay_sec)
         msg.header.stamp = stamp.to_msg()
         msg.header.frame_id = 'laser'
-        # 지연 측정에는 쓰이지 않는다. 메시지 형식을 채우기 위한 최소한의 값이다
+        # 지연 측정에는 쓰지 않는 값이다. 메시지 형식을 채우는 최소한의 값만 넣는다.
         msg.angle_min = -0.1
         msg.angle_max = 0.1
         msg.angle_increment = 0.1

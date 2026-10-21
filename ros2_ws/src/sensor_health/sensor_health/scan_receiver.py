@@ -1,8 +1,4 @@
-"""scan 토픽을 구독해 메시지마다 지연을 로그로 남기는 ROS2 노드.
-
-지연은 도착 시각에서 header.stamp를 뺀 값이다. 도착 시각은 stamp를 찍은 쪽과
-같은 ROS 시계로 측정한다. 계산은 latency 모듈의 latency_sec 함수가 맡고, 이 노드는
-메시지를 받아 값을 넘기는 역할만 한다.
+"""scan 토픽의 메시지마다 지연(도착 시각 - header.stamp)을 로그로 남기는 ROS2 노드.
 
 사용법:
     ros2 run sensor_health scan_receiver
@@ -23,7 +19,7 @@ class ScanReceiver(Node):
         self.get_logger().info('waiting for LaserScan on scan')
 
     def on_scan(self, msg):
-        # stamp와 같은 ROS 시계로 도착 시각(초)을 측정한다
+        # 도착 시각에서 stamp를 빼므로, stamp를 찍은 쪽과 같은 ROS 시계로 측정한다.
         arrival_sec = self.get_clock().now().nanoseconds / 1_000_000_000
         delay = latency_sec(
             arrival_sec, msg.header.stamp.sec, msg.header.stamp.nanosec)
