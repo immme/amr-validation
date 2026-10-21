@@ -67,7 +67,7 @@ class StaleMonitor(Node):
         array.status.append(status)
         self.pub.publish(array)
 
-        # 상태가 바뀔 때만 로그를 남겨 0.5초마다 같은 줄이 쌓이지 않게 한다.
+        # 상태가 바뀔 때만 로그를 남겨 판정할 때마다 같은 줄이 쌓이지 않게 한다.
         if stale != self.last_stale:
             if stale:
                 self.get_logger().warn(f'scan STALE: {status.message}')
