@@ -24,6 +24,7 @@ setup(
             'sensor_receiver = sensor_health.sensor_receiver:main',
             'fake_scan = sensor_health.fake_scan:main',
             'scan_receiver = sensor_health.scan_receiver:main',
+            'stale_monitor = sensor_health.stale_monitor:main',
         ],
     },
 )
